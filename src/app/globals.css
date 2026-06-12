@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/*
+ * Monster Chef — warm Filipino kitchen palette.
+ * Inspired by the VR cooking game: rich charcoal walls, copper light, paprika accents.
+ * Avoids the generic neutral-950 + amber-400 SaaS look.
+ */
+:root {
+  /* Surfaces — charcoal warmed with a hint of brown, not pure black */
+  --bg: #16110d;
+  --bg-2: #1c1612;
+  --bg-3: #221b16;
+  --surface: #2a221c;
+  --border: #3a2f26;
+  --border-strong: #4d3f33;
+
+  /* Text */
+  --fg: #f4ede2;       /* warm cream */
+  --fg-muted: #b8a892;
+  --fg-dim: #7e6f5e;
+
+  /* Accents — only TWO+one functional, used with intent */
+  --gold: #e6a948;     /* hero/active — sukang puti gold */
+  --gold-soft: #b88534;
+  --paprika: #c2553a;  /* destructive / hot CTA — adobo-red */
+  --sage: #6b8f5e;     /* success / approved */
+
+  /* Tinted shadow (warm, not pure black) */
+  --shadow-1: 0 1px 2px rgba(20, 12, 6, .35), 0 8px 24px -8px rgba(20, 12, 6, .55);
+  --shadow-glow: 0 0 0 1px rgba(230, 169, 72, .15), 0 12px 40px -8px rgba(230, 169, 72, .25);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-surface: var(--surface);
+  --color-border-soft: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-dim: var(--fg-dim);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-paprika: var(--paprika);
+  --color-sage: var(--sage);
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html { background: var(--bg); }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular figures for data — keeps columns aligned in tables and stats */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Display heading — serif with character, used sparingly */
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-feature-settings: "ss01";
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Warm grain overlay — pure flat dark mode reads as "discord clone";
+ * a 4% noise layer gives subtle texture like a kitchen wall.
+ * ───────────────────────────────────────────────────────────────────── */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Ambient overhead light — radial warm glow as if a kitchen lamp hangs above */
+.ambient-light {
+  position: relative;
+  isolation: isolate;
+}
+.ambient-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(230, 169, 72, .14), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(194, 85, 58, .08), transparent 70%);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Motion — staggered entries, spring-feel hovers.
+ * All animations use transform + opacity for GPU acceleration.
+ * ───────────────────────────────────────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes steam {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  20%  { opacity: .35; }
+  100% { transform: translateY(-40px) scale(1.6); opacity: 0; }
+}
+
+@keyframes drift {
+  0%   { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50%  { transform: translateY(-14px) rotate(calc(var(--rot, 0deg) + 6deg)); }
+  100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: .2; transform: scale(.8); }
+  50%      { opacity: 1;  transform: scale(1.1); }
+}
+@keyframes steam-rise {
+  0%   { transform: translateY(6px) scaleX(1);   opacity: 0; }
+  25%  { opacity: .5; }
+  100% { transform: translateY(-46px) scaleX(1.5); opacity: 0; }
+}
+@keyframes sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%)  skewX(-18deg); }
+}
+
+.rise        { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both; }
+.rise-1      { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both;  animation-delay:  60ms; }
+.rise-2      { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both;  animation-delay: 120ms; }
+.rise-3      { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both;  animation-delay: 180ms; }
+.rise-4      { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both;  animation-delay: 240ms; }
+.rise-5      { animation: rise 600ms cubic-bezier(.2,.8,.2,1) both;  animation-delay: 300ms; }
+.float-slow  { animation: float 6s ease-in-out infinite; }
+.drift-slow  { animation: drift 7s ease-in-out infinite; }
+.twinkle     { animation: twinkle 3.5s ease-in-out infinite; }
+
+/* Steam wisps for the hero pot */
+.steam {
+  transform-origin: bottom center;
+  animation: steam-rise 3.6s ease-out infinite;
+}
+
+/* Respect users who prefer less motion — kill looping/decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skeleton loader — matches surface, not a generic spinner */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-2) 0%, var(--bg-3) 50%, var(--bg-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 8px;
+}
+
+/* Interactive surfaces — lift + warm glow on hover, press for tactile feedback */
+.tile {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition:
+    transform 260ms cubic-bezier(.2,.8,.2,1),
+    border-color 260ms ease,
+    background 260ms ease,
+    box-shadow 260ms ease;
+}
+.tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  background: var(--bg-3);
+  box-shadow: var(--shadow-glow);
+}
+.tile:active { transform: translateY(0); }
+
+/* Primary CTA — gold, with warm shadow */
+.btn-primary {
+  background: var(--gold);
+  color: #1a120a;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: transform 160ms cubic-bezier(.2,.8,.2,1), background 160ms, box-shadow 160ms;
+  box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 8px 24px -8px rgba(230, 169, 72, .4);
+}
+.btn-primary:hover { background: #f1b656; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+.btn-ghost {
+  background: var(--bg-3);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: transform 160ms, background 160ms, border-color 160ms;
+}
+.btn-ghost:hover { background: var(--surface); border-color: var(--border-strong); transform: translateY(-1px); }
+
+/* Inputs — warm focus ring (not generic blue) */
+.field {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  border-radius: 10px;
+  transition: border-color 200ms, box-shadow 200ms, background 200ms;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(230, 169, 72, .18);
+  background: var(--bg-2);
+}
+
+/* Focus ring for keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scrollbar styled for the dark warm theme */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }

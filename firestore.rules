@@ -1,0 +1,64 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isTeacherOrAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['teacher', 'admin'];
+    }
+
+    function isSelf(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Users collection
+    match /users/{uid} {
+      // Anyone signed-in can read their own document; teachers see all
+      allow read: if isSelf(uid) || isTeacherOrAdmin();
+
+      // Users can create their own initial document
+      allow create: if isSelf(uid);
+
+      // Users can update their own non-privileged fields; teachers update anything
+      allow update: if (
+        isSelf(uid) &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.approved == resource.data.approved
+      ) || isTeacherOrAdmin();
+
+      // Only teachers can delete
+      allow delete: if isTeacherOrAdmin();
+    }
+
+    // Sections — readable by all signed-in users (so students can pick), writable by teachers
+    match /sections/{id} {
+      allow read: if isSignedIn();
+      allow write: if isTeacherOrAdmin();
+    }
+
+    // Scores — students can create their own; teachers read all
+    match /scores/{id} {
+      allow read: if isSignedIn() && (
+        resource.data.studentId == request.auth.uid || isTeacherOrAdmin()
+      );
+      allow create: if isSignedIn() && request.resource.data.studentId == request.auth.uid;
+      allow update, delete: if isTeacherOrAdmin();
+    }
+
+    // Live sessions — both teacher and student involved
+    match /liveSessions/{id} {
+      allow read, write: if isSignedIn() && (
+        resource == null ||
+        resource.data.studentId == request.auth.uid ||
+        resource.data.teacherId == request.auth.uid ||
+        isTeacherOrAdmin()
+      );
+    }
+  }
+}
