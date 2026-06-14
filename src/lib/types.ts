@@ -38,6 +38,10 @@ export interface Score {
   timeSeconds: number;
   stars: number;
   completedAt: Timestamp;
+  /** Set when the teacher releases this score to the student. */
+  sentAt?: Timestamp;
+  /** Optional feedback the teacher attached when releasing the score. */
+  teacherNote?: string;
 }
 
 export interface LiveSession {

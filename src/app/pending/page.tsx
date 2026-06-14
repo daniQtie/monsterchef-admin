@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
 import { WordMark } from "@/components/BrandMark";
 import { IconCheck, IconClock, IconSignOut } from "@/components/Icon";
+import { StudentScores } from "@/components/StudentScores";
 
 export default function PendingPage() {
   const { user, appUser, loading, logout } = useAuth();
@@ -112,6 +113,19 @@ export default function PendingPage() {
               <IconSignOut size={15} /> Sign out
             </button>
           </div>
+
+          {/* ───── Released scores from teacher ───── */}
+          {isApproved && (
+            <section className="mt-10">
+              <header className="mb-3 flex items-baseline justify-between">
+                <h2 className="font-display text-xl font-semibold tracking-[-0.015em]">My Scores</h2>
+                <span className="text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-fg-dim)]">
+                  Released by teacher
+                </span>
+              </header>
+              <StudentScores uid={appUser.uid} />
+            </section>
+          )}
         </div>
       </div>
     </main>
