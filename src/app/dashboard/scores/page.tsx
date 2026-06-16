@@ -100,16 +100,20 @@ export default function ScoresPage() {
       // 3) Best-effort email — does not block dashboard release if it fails.
       let emailMsg = "";
       if (student?.email) {
+        const trimmedNote = note.trim();
         const result = await sendScoreEmail({
           to_email: student.email,
           to_name: student.displayName || sending.studentName,
           recipe: sending.recipe,
           score: sending.score,
           stars: sending.stars,
+          stars_visual: "★".repeat(sending.stars) + "☆".repeat(3 - sending.stars),
           errors: sending.errors,
           time_minutes: (sending.timeSeconds / 60).toFixed(1),
           teacher_name: appUser.displayName || "Your teacher",
-          teacher_note: note.trim(),
+          teacher_note: trimmedNote,
+          has_note: trimmedNote ? "yes" : "no",
+          recipe_emoji: recipeEmoji(sending.recipe),
         });
         if (result.ok) emailMsg = " · Email sent.";
         else if (result.reason === "not-configured") emailMsg = " · Email skipped (EmailJS not configured).";
@@ -375,4 +379,13 @@ function Check() {
       <path d="M3 8l3.5 3.5L13 5" />
     </svg>
   );
+}
+
+function recipeEmoji(recipe: string): string {
+  const r = recipe.toLowerCase();
+  if (r.includes("adobo")) return "🍗";
+  if (r.includes("sinigang")) return "🍲";
+  if (r.includes("kaldereta")) return "🥘";
+  if (r.includes("curry")) return "🍛";
+  return "🍴";
 }

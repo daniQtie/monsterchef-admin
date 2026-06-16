@@ -24,11 +24,14 @@ export interface ScoreEmailParams {
   to_name: string;
   recipe: string;
   score: number;
-  stars: number;
+  stars: number;            // 0..3
+  stars_visual: string;     // e.g. "★★☆" — pre-rendered for the email template
   errors: number;
   time_minutes: string;     // pre-formatted "2.5"
   teacher_name: string;
   teacher_note: string;
+  has_note: string;         // "yes" | "no" — for template show/hide via {{has_note}}
+  recipe_emoji: string;     // small decorative icon per recipe
 }
 
 export type SendResult =

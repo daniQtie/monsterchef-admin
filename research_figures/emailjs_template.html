@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>Your Monster Chef score</title>
+  <!--[if mso]>
+  <style>td, h1, h2, h3, p { font-family: Georgia, serif !important; }</style>
+  <![endif]-->
+  <style>
+    /* Modern email clients honour <style>. Older clients fall back to inline. */
+    body { margin:0 !important; padding:0 !important; width:100% !important; background:#16110d; }
+    img { border:0; display:block; outline:none; -ms-interpolation-mode:bicubic; }
+    a   { color:#e6a948; text-decoration:none; }
+    /* The .mc-note row collapses when {{has_note}} is "no" — see the
+       attribute selector on data-show below. */
+    .mc-note[data-show="no"] { display:none !important; mso-hide:all; }
+
+    @media only screen and (max-width: 620px) {
+      .mc-container { width:100% !important; }
+      .mc-pad       { padding-left:22px !important; padding-right:22px !important; }
+      .mc-hero-num  { font-size:72px !important; line-height:1 !important; }
+      .mc-hero-rec  { font-size:24px !important; }
+      .mc-stat      { display:block !important; width:100% !important; }
+      .mc-stat-cell { padding:14px 18px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; background:#16110d; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#f4ede2;">
+
+<!-- Hidden preheader — preview text in the inbox list -->
+<div style="display:none; max-height:0; overflow:hidden; opacity:0; mso-hide:all;">
+  Your {{recipe}} got {{score}} points. Your teacher {{teacher_name}} just released the result.
+</div>
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#16110d;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+
+      <!-- Outer card -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="mc-container" style="width:600px; max-width:600px; background:#1c1612; border-radius:18px; overflow:hidden; box-shadow:0 12px 40px -8px rgba(20,12,6,.55);">
+
+        <!-- Top gradient band -->
+        <tr>
+          <td style="height:6px; background:linear-gradient(90deg,#b88534 0%,#e6a948 35%,#c2553a 100%); line-height:6px; font-size:0;">&nbsp;</td>
+        </tr>
+
+        <!-- Brand header -->
+        <tr>
+          <td class="mc-pad" style="padding:32px 40px 8px 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <!-- inline SVG mark, fallback to a coloured dot if not rendered -->
+                  <span style="display:inline-block; vertical-align:middle; color:#e6a948;">
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="#e6a948" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 13.5h22l-1.3 11.2a3 3 0 0 1-3 2.6H9.3a3 3 0 0 1-3-2.6L5 13.5Z"/>
+                      <path d="M5 16.5h-1.5a1.5 1.5 0 0 0 0 3H5"/>
+                      <path d="M27 16.5h1.5a1.5 1.5 0 0 1 0 3H27"/>
+                      <path d="M3.5 13.5h25"/>
+                      <circle cx="16" cy="11" r="1.5"/>
+                      <path d="M11 7c1.4-1.2 1.4-3 0-4.2" opacity=".55"/>
+                      <path d="M16 6c1.6-1.4 1.6-3.4 0-4.8" opacity=".75"/>
+                      <path d="M21 7c1.4-1.2 1.4-3 0-4.2" opacity=".55"/>
+                    </svg>
+                  </span>
+                  <span style="display:inline-block; vertical-align:middle; margin-left:10px; font-family:Georgia,serif; font-size:20px; font-weight:600; letter-spacing:-0.01em; color:#f4ede2;">
+                    Monster <em style="font-style:italic; color:#e6a948;">Chef</em>
+                  </span>
+                </td>
+                <td align="right" style="vertical-align:middle; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e;">
+                  Score Released
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Greeting -->
+        <tr>
+          <td class="mc-pad" style="padding:18px 40px 6px 40px;">
+            <p style="margin:0; font-size:15px; line-height:1.55; color:#b8a892;">
+              Hi <span style="color:#f4ede2; font-weight:600;">{{to_name}}</span>,
+            </p>
+            <p style="margin:8px 0 0 0; font-size:15px; line-height:1.6; color:#b8a892;">
+              Your teacher <span style="color:#f4ede2; font-weight:600;">{{teacher_name}}</span> just released your score for —
+            </p>
+          </td>
+        </tr>
+
+        <!-- Hero — recipe + stars + huge score -->
+        <tr>
+          <td class="mc-pad" style="padding:22px 40px 0 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#221b16; border:1px solid #3a2f26; border-radius:14px;">
+              <tr>
+                <td align="center" style="padding:36px 28px 30px 28px;">
+                  <div style="font-size:34px; line-height:1; margin-bottom:8px;">{{recipe_emoji}}</div>
+                  <h1 class="mc-hero-rec" style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:28px; line-height:1.15; font-weight:600; letter-spacing:-0.015em; color:#f4ede2;">
+                    {{recipe}}
+                  </h1>
+                  <div style="margin:14px 0 6px 0; font-size:24px; letter-spacing:0.1em; color:#e6a948;">
+                    {{stars_visual}}
+                  </div>
+                  <div class="mc-hero-num" style="margin-top:18px; font-family:Georgia,'Times New Roman',serif; font-size:88px; line-height:1; font-weight:600; color:#e6a948; letter-spacing:-0.04em;">
+                    {{score}}
+                  </div>
+                  <div style="margin-top:6px; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e;">
+                    Out of a perfect 100
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Stats row — 3 cells -->
+        <tr>
+          <td class="mc-pad" style="padding:18px 40px 0 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td class="mc-stat mc-stat-cell" align="center" valign="top" width="33.33%" style="padding:14px 8px; background:#221b16; border:1px solid #3a2f26; border-radius:10px;">
+                  <div style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e;">Errors</div>
+                  <div style="margin-top:6px; font-family:Georgia,serif; font-size:22px; font-weight:600; color:#f4ede2;">{{errors}}</div>
+                </td>
+                <td style="width:10px; line-height:10px; font-size:0;" class="mc-stat">&nbsp;</td>
+                <td class="mc-stat mc-stat-cell" align="center" valign="top" width="33.33%" style="padding:14px 8px; background:#221b16; border:1px solid #3a2f26; border-radius:10px;">
+                  <div style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e;">Time</div>
+                  <div style="margin-top:6px; font-family:Georgia,serif; font-size:22px; font-weight:600; color:#f4ede2;">{{time_minutes}}<span style="font-size:12px; color:#b8a892;"> min</span></div>
+                </td>
+                <td style="width:10px; line-height:10px; font-size:0;" class="mc-stat">&nbsp;</td>
+                <td class="mc-stat mc-stat-cell" align="center" valign="top" width="33.33%" style="padding:14px 8px; background:#221b16; border:1px solid #3a2f26; border-radius:10px;">
+                  <div style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e;">Stars</div>
+                  <div style="margin-top:6px; font-family:Georgia,serif; font-size:22px; font-weight:600; color:#e6a948;">{{stars}}<span style="font-size:13px; color:#7e6f5e;"> / 3</span></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Teacher note — only shown when has_note == yes -->
+        <tr class="mc-note" data-show="{{has_note}}">
+          <td class="mc-pad" style="padding:22px 40px 0 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#1c1612; border-left:3px solid #e6a948; border-radius:6px;">
+              <tr>
+                <td style="padding:16px 18px;">
+                  <div style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#7e6f5e; margin-bottom:6px;">
+                    Note from your teacher
+                  </div>
+                  <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:15px; line-height:1.55; color:#f4ede2;">
+                    “{{teacher_note}}”
+                  </p>
+                  <p style="margin:8px 0 0 0; font-size:12px; color:#b8a892;">— {{teacher_name}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Closing line -->
+        <tr>
+          <td class="mc-pad" style="padding:26px 40px 6px 40px;">
+            <p style="margin:0; font-size:14px; line-height:1.6; color:#b8a892;">
+              Keep cooking, chef. Every recipe sharpens your craft.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Divider -->
+        <tr>
+          <td class="mc-pad" style="padding:20px 40px 0 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr><td style="border-top:1px solid #3a2f26; height:1px; line-height:1px; font-size:0;">&nbsp;</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td class="mc-pad" style="padding:18px 40px 32px 40px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align:middle; font-size:12px; color:#7e6f5e;">
+                  <strong style="color:#b8a892; font-weight:600;">Monster Chef</strong><br>
+                  University of Eastern Pangasinan · Capstone Project
+                </td>
+                <td align="right" style="vertical-align:middle; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#4d3f33;">
+                  DDV
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Tiny disclaimer -->
+      <p style="margin:14px auto 0 auto; max-width:600px; font-size:11px; line-height:1.5; color:#4d3f33; text-align:center;">
+        You received this email because your teacher released a Monster Chef score for you.
+      </p>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
