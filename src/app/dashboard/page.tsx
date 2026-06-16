@@ -316,69 +316,41 @@ function StartGuide() {
 }
 
 function RecipesShowcase() {
+  // Recipe roster (image-free cards). The decorative glyph picks up the warm
+  // gold accent — visual identity without depending on external images.
   const recipes = [
-    {
-      name: "Adobo",
-      note: "Chicken · soy · vinegar",
-      img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=70&auto=format&fit=crop",
-    },
-    {
-      name: "Sinigang",
-      note: "Pork · tamarind · kangkong",
-      img: "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=600&q=70&auto=format&fit=crop",
-    },
-    {
-      name: "Kaldereta",
-      note: "Beef · tomato · liver spread",
-      img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=70&auto=format&fit=crop",
-    },
-    {
-      name: "Curry",
-      note: "Chicken · coconut · curry",
-      img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=70&auto=format&fit=crop",
-    },
+    { name: "Adobo",     note: "Chicken · soy · vinegar",       glyph: "🍗" },
+    { name: "Sinigang",  note: "Pork · tamarind · kangkong",    glyph: "🍲" },
+    { name: "Kaldereta", note: "Beef · tomato · liver spread",  glyph: "🥘" },
+    { name: "Curry",     note: "Chicken · coconut · curry",     glyph: "🍛" },
   ];
   return (
-    <section className="mt-12 rise-4">
-      <div className="flex items-end justify-between mb-4">
-        <h2 className="font-display text-xl tracking-[-0.01em] font-semibold">
-          The four recipes
-        </h2>
-        <Link
-          href="/dashboard/scores"
-          className="text-[13px] text-[color:var(--color-gold)] hover:opacity-80"
-        >
-          See scores →
-        </Link>
-      </div>
+    <section className="mt-10">
+      <header className="mb-4 flex items-end justify-between">
+        <div>
+          <h2 className="font-display text-xl font-semibold tracking-[-0.015em]">
+            The four recipes
+          </h2>
+          <p className="text-[12.5px] text-[color:var(--color-fg-dim)] mt-0.5">
+            What your students cook in the VR kitchen.
+          </p>
+        </div>
+      </header>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {recipes.map((r) => (
-          <article
+        {recipes.map((r, i) => (
+          <div
             key={r.name}
-            className="group relative overflow-hidden rounded-xl border border-[color:var(--color-border-soft)] aspect-[4/5]"
+            className={`tile p-4 rise-${(i % 4) + 1} hover:[transform:none] hover:[box-shadow:none] hover:bg-[color:var(--color-bg-2)]`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-[700ms] group-hover:scale-105"
-              style={{ backgroundImage: `url(${r.img})` }}
-              aria-hidden
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(22,17,13,0) 30%, rgba(22,17,13,.85) 100%)",
-              }}
-              aria-hidden
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <div className="font-display text-[19px] font-semibold tracking-[-0.01em]">
-                {r.name}
-              </div>
-              <div className="text-[11.5px] text-[color:var(--color-fg-muted)] mt-0.5">
-                {r.note}
-              </div>
+            <div className="flex items-center justify-between mb-3">
+              <span aria-hidden className="text-2xl leading-none">{r.glyph}</span>
+              <span className="text-[10px] tracking-[0.22em] uppercase text-[color:var(--color-fg-dim)]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
             </div>
-          </article>
+            <div className="font-display text-lg font-semibold leading-tight">{r.name}</div>
+            <div className="text-[12px] text-[color:var(--color-fg-muted)] mt-1">{r.note}</div>
+          </div>
         ))}
       </div>
     </section>
